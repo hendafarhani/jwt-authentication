@@ -2,10 +2,10 @@ This project implements two steps:
  a step that combines user's authentication and the generation of a token 
  a step of the token's validation.
 
-## Authentication and generation of jwt: 
+Authentication and generation of jwt: 
 
-###### Authentication:
-*** So how authentication is managed by spring security ? ***
+Authentication:
+So how authentication is managed by spring security ?
 
 First of all there is the authentication manager which attempts to authenticate the passed "Authentication object", in our case it is an instance of the class UsernamePasswordAuthenticationToken. It contains password as credentials and username as principal.
 Secondly we find the authentication provider which does the actual work.
@@ -18,7 +18,7 @@ After authenticating, comes the token's generation by TokenUtil, this latter is 
 For generating the token we define claims like subject, issuedAt and expiration dates. And a signing algorithm and a secret key are needed for encoding those claims, in our case we used the HS512 algorithm and a secret key that will be defined in the application.properties file and will be imported into JwtTokenUtil class as follow @Value("${jwt.secret}").
 
 Validating the token:
-Once our api receives an httpRequest, a filter called OncePerRequestFilter is on the frontline to treat it via doInternalFilter method. So in our case this class is extended and its methode is overriden to make it able to extract the token, validate it and configure the springSecurity context. This filter also guarantees the filtration to be invoked once per request.
+Once our api receives an httpRequest, a filter called OncePerRequestFilter is on the frontline to treat it via doInternalFilter method. So in our case this class is extended and its method is overriden to make it able to extract the token, validate it and configure the springSecurity context. This filter also guarantees the filtration to be invoked once per request.
 
 To validate the token we check if it's not expired and if the user's password is always valid. 
 
