@@ -1,7 +1,7 @@
 # jwt-authentication
 
 This project is built with spring, spring boot and spring security. And developed with java 8. <br /> 
-It implements jwt authentication functionality provided by Spring security framework.
+It implements authentication using jwt functionality provided by Spring security framework.
 
 ## Project structure
 
