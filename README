@@ -1,33 +1,3 @@
-This project implements two steps:
- a step that combines user's authentication and the generation of a token 
- a step of the token's validation.
-
-Authentication and generation of jwt: 
-
-Authentication:
-So how authentication is managed by spring security ?
-
-First of all there is the authentication manager which attempts to authenticate the passed "Authentication object", in our case it is an instance of the class UsernamePasswordAuthenticationToken. It contains password as credentials and username as principal.
-Secondly we find the authentication provider which does the actual work.
-But why are we talking about authentication manager if the provider does "all the work" ?
-Let's take the example of our app which has jwt authentication, let's suppose that we are using other authentication mechanisms and each one is implemented by a separate provider, wouldn't be better to have a manager that decides which provider to use? Yes of course ! and that's what the authentication manager is charged of.
-At third level we have the user details service, "JwtUserDetailsService" in our case, it is responsible on retrieving the user information and returning them back to the authentication provider, as an object named userDetails (defined as UserDao in app). 
-Once the authentication is successful the authentication provider will output the same authentication object but this time containing the principle and the user authorities.
-
-After authenticating, comes the token's generation by TokenUtil, this latter is a class that allows us to execute orperations related to token such generating it, validating it and checking its expiration.
-For generating the token we define claims like subject, issuedAt and expiration dates. And a signing algorithm and a secret key are needed for encoding those claims, in our case we used the HS512 algorithm and a secret key that will be defined in the application.properties file and will be imported into JwtTokenUtil class as follow @Value("${jwt.secret}").
-
-Validating the token:
-Once our api receives an httpRequest, a filter called OncePerRequestFilter is on the frontline to treat it via doInternalFilter method. So in our case this class is extended and its method is overriden to make it able to extract the token, validate it and configure the springSecurity context. This filter also guarantees the filtration to be invoked once per request.
-
-To validate the token we check if it's not expired and if the user's password is always valid. 
-
-Once the token is validated the authentication data is stored in the security context and voila ! authentication is accomplished and it is possible now to proceed with the httpRequest.
-But wait a minute what do we mean by "Security context" ? Actually it is the interface that defines the minimum security information associated with the current thread of execution and the class SecurityContextHolder is the one who performs this association. 
-
-
-
-
 # jwt-authentication
 
 This project is built with spring, spring boot, spring security, java 8 and maven <br />
