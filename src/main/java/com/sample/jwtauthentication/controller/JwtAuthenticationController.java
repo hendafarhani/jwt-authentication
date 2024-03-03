@@ -1,8 +1,8 @@
 package com.sample.jwtauthentication.controller;
 
 import com.sample.jwtauthentication.config.JwtTokenUtil;
-import com.sample.jwtauthentication.model.JwtRequest;
-import com.sample.jwtauthentication.model.JwtResponse;
+import com.sample.jwtauthentication.dao.JwtRequest;
+import com.sample.jwtauthentication.dao.JwtResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

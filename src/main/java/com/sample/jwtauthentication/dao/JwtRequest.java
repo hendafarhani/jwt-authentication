@@ -1,4 +1,4 @@
-package com.sample.jwtauthentication.model;
+package com.sample.jwtauthentication.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
